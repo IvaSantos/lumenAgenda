@@ -1,0 +1,87 @@
+
+
+php artisan make:migration create_pessoas_table --create=pessoas
+
+php artisan make:migration create_telefones_tabel --create=telefones    - cria as migretions
+
+php artisan migrate   - cria as tabela no banco
+
+php artisan migrete:refresh
+
+php artisan make:seeder PessoaTableSeeder        -cria seeders
+
+php artisan db:seed    -popula o banco
+
+
+
+FRONTEND 
+
+Ferramentas:
+  nodejs
+  npm install -g bower      
+  npm install --global gulp
+
+criar arquivo
+package.json
+
+{
+  "private": true,
+  "devDependencies":{
+    "gulp": "^3.8.8"
+  },
+  "dependencies": {
+    "laravel-elixir": "^3.0.0"
+  }
+}
+
+npm install
+
+criar arquivo
+.bowerrc
+
+{
+  "directory": "vendor/bower_components"
+}
+
+bower init
+bower install bootstrap --save
+bower install fontawesome --save
+
+criar diretorio:
+
+resources
+ assets
+  less
+   app.less 
+   
+   @import "./vendor/bower_components/bootstrap/less/bootstrap.less";     
+   @import "./vendor/bower_components/fontawesome/less/font-awesome.less";
+   
+   .btn-row{
+      padding-top: 20px;
+      padding-bottom:20px;
+   }
+
+
+criar arquivo
+
+gulpfile.js
+ var elixir = require('laravel-elixir'),
+     bowerDir = "vendor/bower_components/";
+
+elixir(function(mix){
+    mix.copy(bowerDir + 'bootstrap/fonts', 'public/fonts')
+       .copy(bowerDir + 'font-awesome/fonts', 'public/fonts')
+
+       .copy(bowerDir + 'bootstrap/dist/js/bootstrap.js', 'resources/assets/js')
+       .copy(bowerDir + 'jquery/dist/jquery.js', 'resources/assets/js')
+
+       .scripts([
+           'jquery.js',
+           'bootstrap.js'
+        ], 'public/js/scripts.js')
+	.less('app.less');
+})
+
+
+gulp --production
